@@ -28,18 +28,18 @@ in
     };
 
     services.unifi.jrePackage = lib.mkPackageOption pkgs "jdk" {
-      default = "jdk17_headless";
+      default = "jdk21_headless";
       extraDescription = ''
         Check the UniFi controller release notes to ensure it is supported.
       '';
     };
 
     services.unifi.unifiPackage = lib.mkPackageOption pkgs "unifi" {
-      default = "unifi8";
+      default = "unifi9";
     };
 
     services.unifi.mongodbPackage = lib.mkPackageOption pkgs "mongodb" {
-      default = "mongodb-7_0";
+      default = "mongodb-8_0";
     };
 
     services.unifi.openFirewall = lib.mkOption {
