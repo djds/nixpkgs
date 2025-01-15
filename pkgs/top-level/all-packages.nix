@@ -11636,16 +11636,21 @@ with pkgs;
   mariadb = mariadb_1011;
   mariadb-embedded = mariadb.override { withEmbedded = true; };
 
-  mongodb = hiPrio mongodb-7_0;
+  mongodb = hiPrio mongodb-8_0;
 
-  mongodb-6_0 = callPackage ../servers/nosql/mongodb/6.0.nix {
+  mongodb-6_0 = callPackage ../by-name/mo/mongodb/6.0.nix {
     sasl = cyrus_sasl;
     boost = boost178.override { enableShared = false; };
   };
 
-  mongodb-7_0 = callPackage ../servers/nosql/mongodb/7.0.nix {
+  mongodb-7_0 = callPackage ../by-name/mo/mongodb/7.0.nix {
     sasl = cyrus_sasl;
     boost = boost179.override { enableShared = false; };
+  };
+
+  mongodb-8_0 = callPackage ../by-name/mo/mongodb/8.0.nix {
+    sasl = cyrus_sasl;
+    boost = boost186.override { enableShared = false; };
   };
 
   influxdb = callPackage ../servers/nosql/influxdb { };

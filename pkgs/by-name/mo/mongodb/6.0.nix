@@ -9,7 +9,7 @@
 }:
 
 let
-  buildMongoDB = callPackage ./mongodb.nix {
+  buildMongoDB = callPackage ./package.nix {
     inherit
       sasl
       boost

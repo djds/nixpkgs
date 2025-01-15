@@ -21,13 +21,13 @@ let
 in
 buildMongoDB {
   inherit avxSupport;
-  version = "7.0.16";
-  sha256 = "sha256-j6GQZeAoetwhMOKkbuSPqBGdUbvg7f4u/1MYV1KMc4g=";
+  version = "8.0.4";
+  sha256 = "sha256-0DJqnwUmGIDESriFEYCKYnk3Z8hZuItq90PEk0xtfLA=";
   patches = [
     # ModuleNotFoundError: No module named 'mongo_tooling_metrics':
     # NameError: name 'SConsToolingMetrics' is not defined:
     # The recommended linker 'lld' is not supported with the current compiler configuration, you can try the 'gold' linker with '--linker=gold'.
-    ./mongodb7-SConstruct.patch
+    ./mongodb8-SConstruct.patch
 
     # Fix building with python 3.12 since the imp module was removed
     ./mongodb-python312.patch

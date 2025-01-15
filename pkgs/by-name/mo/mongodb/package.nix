@@ -4,20 +4,21 @@
   fetchFromGitHub,
   buildPackages,
   boost,
+  cctools,
+  curl,
+  git,
   gperftools,
-  pcre2,
-  pcre-cpp,
-  snappy,
-  zlib,
-  yaml-cpp,
-  sasl,
+  libpcap,
   net-snmp,
   openldap,
   openssl,
-  libpcap,
-  curl,
-  cctools,
+  pcre-cpp,
+  pcre2,
+  sasl,
+  snappy,
   xz,
+  yaml-cpp,
+  zlib,
 }:
 
 # Note:
@@ -37,13 +38,19 @@ let
   scons = buildPackages.scons;
   python = scons.python.withPackages (
     ps: with ps; [
-      pyyaml
       cheetah3
-      psutil
-      setuptools
+      distro
       distutils
+      gitpython
+      jsonschema
+      memory-profiler
       packaging
+      psutil
       pymongo
+      pyyaml
+      requests
+      retry
+      setuptools
     ]
   );
 
@@ -58,7 +65,7 @@ let
       #"valgrind" -- mongodb only requires valgrind.h, which is vendored in the source.
       #"wiredtiger"
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ "tcmalloc" ]
+    ++ lib.optionals (stdenv.hostPlatform.isLinux && (lib.versionOlder version "8.0")) [ "tcmalloc" ]
     ++ lib.optionals (lib.versionOlder version "7.0") [
       "pcre"
     ]
@@ -114,14 +121,14 @@ stdenv.mkDerivation rec {
     ''
       # fix environment variable reading
       substituteInPlace SConstruct \
-          --replace "env = Environment(" "env = Environment(ENV = os.environ,"
+          --replace-fail "env = Environment(" "env = Environment(ENV = os.environ,"
     ''
     + ''
       # Fix debug gcc 11 and clang 12 builds on Fedora
       # https://github.com/mongodb/mongo/commit/e78b2bf6eaa0c43bd76dbb841add167b443d2bb0.patch
-      substituteInPlace src/mongo/db/query/plan_summary_stats.h --replace '#include <string>' '#include <optional>
+      substituteInPlace src/mongo/db/query/plan_summary_stats.h --replace-fail '#include <string>' '#include <optional>
       #include <string>'
-      substituteInPlace src/mongo/db/exec/plan_stats.h --replace '#include <string>' '#include <optional>
+      substituteInPlace src/mongo/db/exec/plan_stats.h --replace-fail '#include <string>' '#include <optional>
       #include <string>'
     ''
     + lib.optionalString (!avxSupport) ''
