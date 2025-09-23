@@ -19,7 +19,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-reader";
-  version = "0-unstable-2025-09-21";
+  version = "1.0.0-beta.1";
 
   src = fetchFromGitHub {
     owner = "pop-os";

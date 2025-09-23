@@ -12,7 +12,7 @@
 
 rustPlatform.buildRustPackage {
   pname = "cosmic-design-demo";
-  version = "0-unstable-2024-01-08";
+  version = "1.0.0-beta.1";
 
   src = fetchFromGitHub {
     owner = "pop-os";

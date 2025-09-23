@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation {
   pname = "cosmic-protocols";
-  version = "0-unstable-2025-09-01";
+  version = "1.0.0-beta.1";
 
   src = fetchFromGitHub {
     owner = "pop-os";

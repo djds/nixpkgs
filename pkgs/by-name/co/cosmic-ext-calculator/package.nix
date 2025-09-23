@@ -13,7 +13,7 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "cosmic-ext-calculator";
-  version = "0.1.1";
+  version = "1.0.0-beta.1";
 
   src = fetchFromGitHub {
     owner = "cosmic-utils";
