@@ -4,6 +4,8 @@
   sound-theme-freedesktop,
   rustPlatform,
   libcosmicAppHook,
+  libinput,
+  pipewire,
   pulseaudio,
   udev,
   nix-update-script,
@@ -22,16 +24,25 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-+NwsMCOZeZlPcVVQv3WzRj8vAM8P8qPGsOMaTACVEFQ=";
   };
 
+  patches = [
+    ./patches/play_audio_volume_change.patch
+  ];
+
   postPatch = ''
     substituteInPlace src/components/app.rs \
-      --replace-fail '/usr/share/sounds/freedesktop/stereo/audio-volume-change.oga' '${sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga'
+      --replace-fail 'SOUND-THEME-FREEDESKTOP' '${sound-theme-freedesktop}'
   '';
 
   cargoHash = "sha256-YcNvvK+Zf8nSS5YjS5iaoipogstiyBdNY7LhWPsz9xQ=";
 
-  nativeBuildInputs = [ libcosmicAppHook ];
+  nativeBuildInputs = [
+    libcosmicAppHook
+    rustPlatform.bindgenHook
+  ];
 
   buildInputs = [
+    libinput
+    pipewire
     pulseaudio
     udev
   ];

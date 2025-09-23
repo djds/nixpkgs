@@ -1,0 +1,23 @@
+diff --git a/src/components/app.rs b/src/components/app.rs
+index 9f76b5a..4a05116 100644
+--- a/src/components/app.rs
++++ b/src/components/app.rs
+@@ -1009,13 +1009,13 @@ mod pipewire {
+     }
+ 
+     pub fn play_audio_volume_change() {
+-        let sounds_dirs = xdg::BaseDirectories::with_prefix("sounds");
+-        if let Some(path) = sounds_dirs.find_data_file("freedesktop/stereo/audio-volume-change.oga")
+-        {
++        let sounds_dir = Path::new("SOUND-THEME-FREEDESKTOP/share/sounds");
++        let path = sounds_dir.join("freedesktop/stereo/audio-volume-change.oga");
++        if path.is_file() {
+             play(&path);
+             return;
+         }
+-        log::error!("Sound file not found in XDG data directories");
++        log::error!("Sound file not found: {}", path.display());
+     }
+ }
+ 
+
