@@ -24,6 +24,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-bo46A7hS1U0cOsa/T4oMTKUTjxVCaGuFdN2qCjVHxhg=";
 
+  patches = [
+    ./patches/start-cosmic-remove-gnome-keyring-ssh.patch
+  ];
+
   postPatch = ''
     substituteInPlace data/start-cosmic \
       --replace-fail '/usr/bin/cosmic-session' "${placeholder "out"}/bin/cosmic-session" \
