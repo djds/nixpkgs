@@ -5796,10 +5796,6 @@ with pkgs;
     xeus-cling
     ;
 
-  clojure = callPackage ../development/interpreters/clojure { };
-
-  clooj = callPackage ../development/interpreters/clojure/clooj.nix { };
-
   dhall = haskell.lib.compose.justStaticExecutables haskellPackages.dhall;
 
   dhall-bash = haskell.lib.compose.justStaticExecutables haskellPackages.dhall-bash;
@@ -5952,8 +5948,6 @@ with pkgs;
   );
 
   ### End of CuboCore
-
-  obb = callPackage ../development/interpreters/clojure/obb.nix { };
 
   octave = callPackage ../development/interpreters/octave { };
 
